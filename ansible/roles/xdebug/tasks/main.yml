@@ -1,0 +1,7 @@
+---
+#- name: Install phpapi-20121212
+#  sudo: yes
+#  apt: pkg=phpapi-20121212 state=latest
+- name: Install xDebug
+  sudo: yes
+  apt: pkg=php5-xdebug state=latest

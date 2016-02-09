@@ -1,0 +1,41 @@
+---
+- name: nginxphp | Install Nginx
+  apt: pkg=nginx state=latest
+
+- name: disable nginx sendfile directive
+  sudo: yes
+  lineinfile: dest=/etc/nginx/nginx.conf
+              regexp='sendfile'
+              line='       sendfile off;'
+
+- name: Create the virtualhosts
+  template: src=symfony3ansible.tpl dest=/etc/nginx/sites-available/symfony3ansible
+  with_items: vhosts
+  sudo: yes
+
+- name: Disable Default Site
+  file: dest=/etc/nginx/sites-enabled/default state=absent
+  sudo: yes
+
+- name: Enable all virtualhosts
+  sudo: yes
+  file: src=/etc/nginx/sites-available/symfony3ansible dest=/etc/nginx/sites-enabled/symfony3ansible state=link
+  with_items: vhosts
+
+- name: Add the virtualhosts to the file /etc/hosts
+  sudo: yes
+  lineinfile: dest=/etc/hosts line="127.0.0.1 symfony3ansible.localhost"
+  with_items: vhosts
+  notify:
+  - stop apache2
+  - restart nginx
+
+#- name: nginxphp | Install PHP Packages
+#  apt: pkg={{ item }} state=latest
+#  with_items: php_packages
+
+#- name: create mcrypt symbolic link
+#  file: path=/etc/php5/fpm/conf.d/mcrypt.ini src=/etc/php5/mods-available/mcrypt.ini state=link
+#  notify:
+#  - restart php5-fpm
+#  - restart nginx

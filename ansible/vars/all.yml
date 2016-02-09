@@ -1,0 +1,23 @@
+---
+server:
+    install: '1'
+    packages: [vim, htop, iotop, git, curl]
+    timezone: UTC
+    locale: en_US.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { base_box: trusty64, hostname: php7, ip: 192.168.11.2, sharedfolder: ./, enableWindows: '1', useVagrantCloud: '1', syncType: nfs }
+php:
+    install: '1'
+    ppa: php
+    packages: ['php7.0-fpm']
+    # php7.0-mysql
+#    'php5-common', 'php5-curl', 'php5-cli', 'php5-mysql', 'php5-mcrypt', 'php5-intl'
+xdebug:
+    install: '1'
+nginx:
+    virtualhost_file: symfony3ansible.tpl
+    server_name: symfony3ansible.localhost
+    file: symfony3ansible
+    root: /var/www/symfony3ansible/web
+    server_root: symfony3ansible/public
