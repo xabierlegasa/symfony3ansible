@@ -9,7 +9,7 @@
               line='       sendfile off;'
 
 - name: Create the virtualhosts
-  template: src=symfony3ansible.tpl dest=/etc/nginx/sites-available/symfony3ansible
+  template: src=nginx_virtualhost.tpl dest=/etc/nginx/sites-available/symfony3ansible
   with_items: vhosts
   sudo: yes
 
