@@ -1,6 +1,8 @@
 #phpstorm
 .idea
 
+#vagrant
+.vagrant
 
 /app/config/parameters.yml
 /build/
