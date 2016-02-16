@@ -30,10 +30,6 @@
   - stop apache2
   - restart nginx
 
-#- name: nginxphp | Install PHP Packages
-#  apt: pkg={{ item }} state=latest
-#  with_items: php_packages
-
 #- name: create mcrypt symbolic link
 #  file: path=/etc/php5/fpm/conf.d/mcrypt.ini src=/etc/php5/mods-available/mcrypt.ini state=link
 #  notify:

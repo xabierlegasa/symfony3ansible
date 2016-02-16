@@ -2,24 +2,21 @@ Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
         v.name = "php7"
-        v.customize [
-            "modifyvm", :id,
-            "--name", "php7",
-            "--memory", 512,
-            "--natdnshostresolver1", "on",
-            "--cpus", 2,
-        ]
+        v.memory = 512
+        v.cpus = 2
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--ioapic", "on"]
     end
 
     config.vm.box = "ubuntu/trusty64"
+    config.ssh.insert_key = false
 
-    config.vm.network :private_network, ip: "192.168.11.2"
+    config.vm.network :private_network, ip: "192.168.11.3"
     config.vm.network "forwarded_port", guest: 80, host: 8080
-    config.ssh.forward_agent = true
 
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "ansible/playbook.yml"
-        ansible.inventory_path = "ansible/inventories/dev"
+        ansible.inventory_path = "ansible/inventory"
         ansible.limit = 'all'
     end
 

@@ -3,6 +3,14 @@ symfony3ansible
 
 Symfony3 bootstrap project. Provisioning via Vagrant+Ansible. PHP7
 
+## Requisites
+
+You need this your host machine:
+
+- Virtualbox
+- Vagrant
+- Ansible
+
 
 ## Configuration
 - Clone the project: # git clone git@github.com:xabierlegasa/symfony3ansible.git

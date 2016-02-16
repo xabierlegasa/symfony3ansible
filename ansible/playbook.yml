@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: local
   sudo: true
   vars_files:
     - vars/all.yml
@@ -10,4 +10,5 @@
     - composer
 #    - xdebug
     - nginx
+    - redis
     - app
